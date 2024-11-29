@@ -235,6 +235,32 @@ local function activate_hydra(config)
       end,
       { desc = "Merge with cell below", nowait = true },
     },
+    {
+      config.hydra_keys.yank_cell,
+      function()
+        local success, miniai = pcall(require, "mini.ai")
+        if success then
+          miniai.select_textobject("a", M.config.cell_textobject_key)
+          vim.cmd "normal! y"
+        else
+          vim.notify "mini.ai required to yank cell"
+        end
+      end,
+      { desc = "Delete cell", nowait = true },
+    },
+    {
+      config.hydra_keys.delete_cell,
+      function()
+        local success, miniai = pcall(require, "mini.ai")
+        if success then
+          miniai.select_textobject("a", M.config.cell_textobject_key)
+          vim.cmd "normal! d"
+        else
+          vim.notify "mini.ai required to delete cell"
+        end
+      end,
+      { desc = "Delete cell", nowait = true },
+    },
     { "q", nil, { exit = true, nowait = true, desc = "exit" } },
     { "<esc>", nil, { exit = true, nowait = true, desc = "exit" } },
   }
@@ -295,6 +321,8 @@ M.config = {
     swap_down = "nil",
     merge_up = "nil",
     merge_down = "nil",
+    delete_cell = "nil",
+    yank_cell = "nil",
   },
   -- The repl plugin with which to interface
   -- Current options: "iron" for iron.nvim, "toggleterm" for toggleterm.nvim,
@@ -305,6 +333,9 @@ M.config = {
   syntax_highlight = false,
   -- (Optional) for use with `mini.hipatterns` to highlight cell markers
   cell_highlight_group = "Folded",
+  -- (Optional) for use with `mini.ai: key passed to mini as cell textobject.
+  -- for example: custom_textobjects = { h = nn.miniai_spec }
+  cell_textobject_key = "h",
 }
 --minidoc_afterlines_end
 
