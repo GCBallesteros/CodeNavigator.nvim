@@ -150,6 +150,12 @@ Any options that are not specified when calling `setup` will take on their defau
     move_down = "j",
     add_cell_before = "a",
     add_cell_after = "b",
+    split = "s",
+    swap_up = "nil",
+    swap_down = "nil",
+    merge_up = "nil",
+    merge_down = "nil",
+
   },
   -- The repl plugin with which to interface
   -- Current options: "iron" for iron.nvim, "toggleterm" for toggleterm.nvim,
